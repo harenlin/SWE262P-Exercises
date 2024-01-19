@@ -17,6 +17,7 @@ var word_freqs []struct {
 	Freq int
 }
 
+
 func read_file(path_to_file string) {
 	tmpData, err := ioutil.ReadFile(path_to_file)
 	if err != nil {
