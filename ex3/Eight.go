@@ -2,7 +2,7 @@ package main
 
 import ( "fmt"; "io/ioutil"; "bufio"; "os"; "unicode"; "strings"; "sort" )
 
-func parse(reader *bufio.Reader, stopWords map[string]struct{}, words *[]string) {
+/* func parse(reader *bufio.Reader, stopWords map[string]struct{}, words *[]string) {
 	curWord := ""
 	for {
 		char, _, err := reader.ReadRune() // read character by character
@@ -21,6 +21,36 @@ func parse(reader *bufio.Reader, stopWords map[string]struct{}, words *[]string)
 		if _, isStopWord := stopWords[curWord]; !isStopWord {
 			*words = append(*words, curWord)
 		}
+	}
+} */
+
+
+func parse(reader *bufio.Reader, stopWords map[string]struct{}, words *[]string, curWord *string) {
+	char, _, err := reader.ReadRune() // read character by character
+	if err != nil {
+		if err.Error() == "EOF" {
+			// fmt.Println("End of file reached.")			
+			if *curWord != "" { 
+				if _, isStopWord := stopWords[*curWord]; !isStopWord { *words = append(*words, strings.Clone(*curWord)) } 
+			}
+			return
+		} else {
+			fmt.Println("Error:", err)
+			return
+		}	 
+	}
+
+	if unicode.IsLetter(char) || unicode.IsNumber(char) {
+		*curWord += string(unicode.ToLower(char))
+		parse(reader, stopWords, words, curWord) // RECURSIVE call right here!
+	} else if *curWord != "" { 
+		if _, isStopWord := stopWords[*curWord]; !isStopWord {
+			*words = append(*words, strings.Clone(*curWord))
+		}
+		*curWord = ""
+		parse(reader, stopWords, words, curWord) // RECURSIVE call right here!
+	} else {
+		parse(reader, stopWords, words, curWord) // RECURSIVE call right here!
 	}
 }
 
@@ -77,8 +107,9 @@ func main() {
 	reader := bufio.NewReader(file)
 	defer file.Close()
 
+	var curWord string
 	var words []string
-	parse(reader, stopWords, &words)
+	parse(reader, stopWords, &words, &curWord)
 	
 	print_all(sort_map(frequencies(words))[:25])
 }
