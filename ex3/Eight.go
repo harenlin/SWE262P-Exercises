@@ -2,7 +2,7 @@ package main
 
 import ( "fmt"; "io/ioutil"; "bufio"; "os"; "unicode"; "strings"; "sort" )
 
-/* func parse(reader *bufio.Reader, stopWords map[string]struct{}, words *[]string) {
+func parse(reader *bufio.Reader, stopWords map[string]struct{}, words *[]string) {
 	curWord := ""
 	for {
 		char, _, err := reader.ReadRune() // read character by character
@@ -22,10 +22,10 @@ import ( "fmt"; "io/ioutil"; "bufio"; "os"; "unicode"; "strings"; "sort" )
 			*words = append(*words, curWord)
 		}
 	}
-} */
+}
 
 
-func parse(reader *bufio.Reader, stopWords map[string]struct{}, words *[]string, curWord *string) {
+/* func parse(reader *bufio.Reader, stopWords map[string]struct{}, words *[]string, curWord *string) {
 	char, _, err := reader.ReadRune() // read character by character
 	if err != nil {
 		if err.Error() == "EOF" {
@@ -53,6 +53,8 @@ func parse(reader *bufio.Reader, stopWords map[string]struct{}, words *[]string,
 		parse(reader, stopWords, words, curWord) // RECURSIVE call right here!
 	}
 }
+*/
+
 
 func frequencies(word_list []string) map[string]int {
 	word_freqs := make(map[string]int)
@@ -107,9 +109,10 @@ func main() {
 	reader := bufio.NewReader(file)
 	defer file.Close()
 
-	var curWord string
 	var words []string
-	parse(reader, stopWords, &words, &curWord)
+	parse(reader, stopWords, &words)
+	// var curWord string
+	// parse(reader, stopWords, &words, &curWord)
 	
 	print_all(sort_map(frequencies(words))[:25])
 }
