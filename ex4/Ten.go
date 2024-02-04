@@ -43,18 +43,18 @@ var scan = func(object interface{}) interface{} {
 }
 
 var remove_stop_words = func(object interface{}) interface{} {
-	stopWords := make(map[string]struct{})
+	stop_words := make(map[string]struct{})
 	fileContent, _ := ioutil.ReadFile("./../stop_words.txt")
 	for _, word := range strings.Split(string(fileContent), ",") { 
-		stopWords[word] = struct{}{}
+		stop_words[word] = struct{}{}
 	}
 	for _, char := range "abcdefghijklmnopqrstuvwxyz" { 
-		stopWords[string(char)] = struct{}{}
+		stop_words[string(char)] = struct{}{}
 	}
 	word_list := object.([]string)
 	var stopwords_removed_word_list []string
 	for _, w := range word_list { 
-		if _, isStopword := stopWords[w]; !isStopword { 
+		if _, isStopword := stop_words[w]; !isStopword { 
 			stopwords_removed_word_list = append(stopwords_removed_word_list, w)
 		} 
 	}
