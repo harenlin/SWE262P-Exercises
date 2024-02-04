@@ -101,8 +101,8 @@ func sort_map(word_freqs map[string]int, fn func([]struct{Word string; Freq int}
 }
 
 
-func print_text(sortedWordFreqs []struct{Word string; Freq int}, fn func(fn func())){
-	for _, v := range sortedWordFreqs[:25] { 
+func print_text(sorted_word_freqs []struct{Word string; Freq int}, fn func(fn func())){
+	for _, v := range sorted_word_freqs[:25] { 
 		fmt.Printf("%s  -  %d\n", v.Word, v.Freq) 
 	}
 }
@@ -115,7 +115,7 @@ func no_op(fn func()) {
 
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Println("Usage: go run main.go <path_to_file>")
+		fmt.Println("Usage: go run Nine.go <path_to_file>")
 		os.Exit(1)
 	}
 
