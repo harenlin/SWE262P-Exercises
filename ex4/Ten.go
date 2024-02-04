@@ -31,8 +31,7 @@ var read_file = func(object interface{}) interface{} {
 var filter_chars = func(object interface{}) interface{} {
 	str_data := object.(string)
 	re := regexp.MustCompile(`[\W_]+`)
-	str_data = re.ReplaceAllString(str_data, " ")
-	return str_data
+	return re.ReplaceAllString(str_data, " ")
 }
 
 var normalize = func(object interface{}) interface{} {
