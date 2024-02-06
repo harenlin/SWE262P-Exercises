@@ -26,4 +26,5 @@ For the Sixteen.txt, you will see the only difference as below:
 ```shell
 26d25
 < The number of non-stop words with the letter z is 837.
-```.
+```
+
