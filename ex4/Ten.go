@@ -109,7 +109,7 @@ func main() {
 	t := &TFTheOne{value: os.Args[1]}
 	t.bind(read_file).
 	  bind(filter_chars).
-      	  bind(normalize).
+      bind(normalize).
 	  bind(scan).
 	  bind(remove_stop_words).
 	  bind(frequencies).
