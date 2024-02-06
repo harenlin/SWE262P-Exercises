@@ -22,7 +22,7 @@ diff Sixteen.txt ./../test_out.txt
 ```
 to see if the result is matched or not.
 
-For the Sixteen.txt, you will see the only difference as below:
+For the ```Sixteen.txt```, you will see the only difference as below:
 ```shell
 26d25
 < The number of non-stop words with the letter z is 837.
