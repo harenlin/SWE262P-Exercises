@@ -147,22 +147,61 @@ func (wfa *WordFrequencyApplication) stop(event []interface{}){
 	wfa.event_manager.publish([]interface{}{"print", nil})
 }
 
+type WordWithZChecker struct {
+	event_manager *EventManager
+	zWords []string
+}
+
+func (wwzch *WordWithZChecker) init(eventManager *EventManager){
+	wwzch.event_manager = eventManager
+	wwzch.event_manager.subscribe("valid_word", wwzch.check_z)
+	wwzch.event_manager.subscribe("print", wwzch.print_n_word_with_z)
+}
+
+func (wwzch *WordWithZChecker) check_z(event []interface{}){
+	word := event[1].(string)
+	if strings.ContainsRune(word, 'z') {
+		wwzch.zWords = append(wwzch.zWords, word)
+    } 
+} 
+
+func (wwzch *WordWithZChecker) print_n_word_with_z(event []interface{}){
+	fmt.Printf("The number of non-stop words with the letter z is %d.\n", len(wwzch.zWords))
+}
+
 func main() {
 	if len(os.Args) < 2 {
 		fmt.Println("Usage: go run Sixteen.go <path_to_file>")
 		return
 	}
 
+	// Part1. Print top frequent 25 words
 	em := &EventManager{}
 	em.init()
+	
 	ds := &DataStorage{}
 	ds.init(em)
+	
 	swf := &StopWordFilter{}
 	swf.init(em)
+
 	wfc := &WordFrequencyCounter{}
 	wfc.init(em)
+	
 	wfa := &WordFrequencyApplication{}
 	wfa.init(em)
+	
+	// Part2. Words with z. 
+	// Change the given example program so that it implements an additional task: 
+	// after printing out the list of 25 top words, 
+	// it should print out the number of non-stop words with the letter z. 
+	// Additional constraints: 
+	// (i) no changes should be made to the existing classes; 
+	// 	   adding new classes and more lines of code to the main function is allowed; 
+	// (ii) files should be read only once for both term frequency and “words with z” tasks.
+	wwzch := &WordWithZChecker{}
+	wwzch.init(em)
+
 	em.publish([]interface{}{"run", os.Args[1]})
 }
 

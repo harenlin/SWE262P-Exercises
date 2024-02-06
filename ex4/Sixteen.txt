@@ -23,3 +23,4 @@ think  -  211
 now  -  209
 time  -  203
 good  -  201
+The number of non-stop words with the letter z is 837.
