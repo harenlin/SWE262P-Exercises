@@ -1,0 +1,180 @@
+----------org.json.CDL----------
+Public methods: 9
+Private methods: 1
+Protected methods: 0
+Static methods: 10
+Fields: 0
+----------org.json.Cookie----------
+Public methods: 4
+Private methods: 0
+Protected methods: 0
+Static methods: 4
+Fields: 0
+----------org.json.CookieList----------
+Public methods: 2
+Private methods: 0
+Protected methods: 0
+Static methods: 2
+Fields: 0
+----------org.json.HTTP----------
+Public methods: 2
+Private methods: 0
+Protected methods: 0
+Static methods: 2
+Fields: 1
+----------org.json.HTTPTokener----------
+Public methods: 1
+Private methods: 0
+Protected methods: 0
+Static methods: 0
+Fields: 0
+----------org.json.JSONArray----------
+Public methods: 85
+Private methods: 6
+Protected methods: 0
+Static methods: 1
+Fields: 1
+----------org.json.JSONException----------
+Public methods: 0
+Private methods: 0
+Protected methods: 0
+Static methods: 0
+Fields: 1
+----------org.json.JSONML----------
+Public methods: 14
+Private methods: 2
+Protected methods: 0
+Static methods: 16
+Fields: 0
+----------org.json.JSONMLParserConfiguration----------
+Public methods: 4
+Private methods: 0
+Protected methods: 3
+Static methods: 0
+Fields: 3
+----------org.json.JSONObject----------
+Public methods: 90
+Private methods: 11
+Protected methods: 2
+Static methods: 27
+Fields: 3
+----------org.json.JSONObject$Null----------
+Public methods: 3
+Private methods: 0
+Protected methods: 1
+Static methods: 0
+Fields: 0
+----------org.json.JSONParserConfiguration----------
+Public methods: 2
+Private methods: 0
+Protected methods: 3
+Static methods: 0
+Fields: 0
+----------org.json.JSONPointer----------
+Public methods: 4
+Private methods: 3
+Protected methods: 0
+Static methods: 4
+Fields: 2
+----------org.json.JSONPointer$Builder----------
+Public methods: 3
+Private methods: 0
+Protected methods: 0
+Static methods: 0
+Fields: 1
+----------org.json.JSONPointerException----------
+Public methods: 0
+Private methods: 0
+Protected methods: 0
+Static methods: 0
+Fields: 1
+----------org.json.JSONPropertyIgnore----------
+Public methods: 0
+Private methods: 0
+Protected methods: 0
+Static methods: 0
+Fields: 0
+----------org.json.JSONPropertyName----------
+Public methods: 1
+Private methods: 0
+Protected methods: 0
+Static methods: 0
+Fields: 0
+----------org.json.JSONString----------
+Public methods: 1
+Private methods: 0
+Protected methods: 0
+Static methods: 0
+Fields: 0
+----------org.json.JSONStringer----------
+Public methods: 1
+Private methods: 0
+Protected methods: 0
+Static methods: 0
+Fields: 0
+----------org.json.JSONTokener----------
+Public methods: 17
+Private methods: 2
+Protected methods: 1
+Static methods: 1
+Fields: 8
+----------org.json.JSONWriter----------
+Public methods: 10
+Private methods: 4
+Protected methods: 0
+Static methods: 1
+Fields: 6
+----------org.json.NumberConversionUtil----------
+Public methods: 0
+Private methods: 5
+Protected methods: 0
+Static methods: 7
+Fields: 0
+----------org.json.ParserConfiguration----------
+Public methods: 4
+Private methods: 0
+Protected methods: 2
+Static methods: 0
+Fields: 4
+----------org.json.Property----------
+Public methods: 2
+Private methods: 0
+Protected methods: 0
+Static methods: 2
+Fields: 0
+----------org.json.XML----------
+Public methods: 17
+Private methods: 5
+Protected methods: 0
+Static methods: 22
+Fields: 11
+----------org.json.XML$1----------
+Public methods: 1
+Private methods: 0
+Protected methods: 0
+Static methods: 0
+Fields: 1
+----------org.json.XML$1$1----------
+Public methods: 4
+Private methods: 0
+Protected methods: 0
+Static methods: 0
+Fields: 3
+----------org.json.XMLParserConfiguration----------
+Public methods: 14
+Private methods: 0
+Protected methods: 3
+Static methods: 0
+Fields: 7
+----------org.json.XMLTokener----------
+Public methods: 6
+Private methods: 0
+Protected methods: 0
+Static methods: 1
+Fields: 1
+----------org.json.XMLXsiTypeConverter----------
+Public methods: 1
+Private methods: 0
+Protected methods: 0
+Static methods: 0
+Fields: 0
