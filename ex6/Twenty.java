@@ -1,7 +1,4 @@
 /* 
-#!/usr/bin/env python
-import sys, configparser, importlib.machinery
-
 def load_plugins():
     config = configparser.ConfigParser()
     config.read("config.ini")
@@ -10,23 +7,9 @@ def load_plugins():
     global tfwords, tffreqs
     tfwords = importlib.machinery.SourcelessFileLoader('tfwords', words_plugin).load_module()
     tffreqs = importlib.machinery.SourcelessFileLoader('tffreqs', frequencies_plugin).load_module()
-
-load_plugins()
-word_freqs = tffreqs.top25(tfwords.extract_words(sys.argv[1]))
-
-for (w, c) in word_freqs:
-    print(w, '-', c)
 */
 
 /* [SPEC]
- * The problem is decomposed using some form of abstraction (procedures, functions, objects, etc.)
- * All or some of those abstractions are physically encapsulated into their own, usually pre-compiled, packages. Main program and each of the packages are compiled independently. These packages are loaded dynamically by the main program, usually in the beginning (but not necessarily).
- * Main program uses functions/objects from the dynamically-loaded packages, without knowing which exact implementations will be used. New implementations can be used without having to adapt or recompile the main program.
- * External specification of which packages to load. This can be done by a configuration file, path conventions, user input or other mechanisms for external specification of code to be linked at run time.
- * 
- *
- * =======================================================================
- *
  * Provide 2 plugins for extracting words: 
  * 	one should implement the "normal" extraction we have been using so far; 
  * 	the second one should extract only non-stop words with z.
@@ -35,28 +18,85 @@ for (w, c) in word_freqs:
  * 	one should implement the "normal" counting we have been using so far; 
  * 	the second one should count words based on their first letters, 
  * 	so words starting with 'a', words starting with 'b', etc.
- *
  * */
 
+import java.io.FileInputStream;
+import java.io.File;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.nio.file.Path;
+import java.util.*;
+
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.TreeMap;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.net.MalformedURLException;
+
 public class Twenty {
+
+	private static String CONFIG_PATH = "./config.properties";
+
+	private static ITFWords Extractor;
+	private static ITFCount Counter;
+	
+	public static void load_plugins() {
+    	Properties propt = new Properties();
+		try {
+			propt.load(new FileInputStream(CONFIG_PATH));
+		} catch(Exception e){
+			e.printStackTrace();
+		} 
+		
+		String wordsClassName = propt.getProperty("words");
+        String wordsJarName = "plugins/" + wordsClassName + ".jar";
+        URL wordsJarURL = null;
+		try {
+			wordsJarURL = new File(wordsJarName).toURI().toURL();
+		} catch(Exception e){
+			e.printStackTrace();
+		} 
+		// System.out.println("---" + wordsClassName + " " + wordsJarName);
+
+		String countClassName = propt.getProperty("count");
+        String countJarName = "plugins/" + countClassName + ".jar";
+        URL countJarURL = null;
+		try {
+			countJarURL = new File(countJarName).toURI().toURL();
+		} catch(Exception e){
+			e.printStackTrace();
+		} 
+		// System.out.println("---" + countClassName + " " + countJarName);
+
+		URLClassLoader classLoader1 = new URLClassLoader(new URL[]{wordsJarURL});
+		URLClassLoader classLoader2 = new URLClassLoader(new URL[]{countJarURL});
+
+		// System.out.println(wordsJarURL);
+		// System.out.println(countJarURL);
+		
+		try {
+			Extractor = (ITFWords) classLoader1.loadClass(wordsClassName).getDeclaredConstructor().newInstance();     
+			Counter = (ITFCount) classLoader2.loadClass(countClassName).getDeclaredConstructor().newInstance();
+		} catch(Exception e){
+			e.printStackTrace();
+		} 
+
+	}
+
     public static void main(String[] args) {
-        System.out.println("Hello, World!");
 		if( args.length < 1 ){
 			System.err.println("Please specify your /path/to/file.");
 			System.exit(1);
-		}
-
-		// 1) Parse config file
-		// 2) Get the plugin for words
-		// 3) Get the plugin for freqs => 1~3 wrapped in load_plugins
-		// 4) Get word_freqs map by using plugins
-		// 5) Print Top25 out
+		} 
 		
 		load_plugins();
-		var word_freqs = tffreqs.top25(tfwords.extract_words(args[0]));
-        word_freqs.forEach(entry -> System.out.println(entry.getKey() + "  -  " + entry.getValue()));
-
-
+		List<Map. Entry<String, Integer>> word_freqs = Counter.count(Extractor.extract(args[0]));
+		for(Map.Entry<String, Integer> entry : word_freqs) {
+            System.out.println(entry.getKey() + "  -  " + entry.getValue());
+        }
     }
 }
 
