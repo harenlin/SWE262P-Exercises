@@ -44,25 +44,25 @@ public class Twenty {
 			e.printStackTrace();
 		} 
 		
-		String wordsClassName = propt.getProperty("words");
-        String wordsJarName = "plugins/" + wordsClassName + ".jar";
+		String words_class_name = propt.getProperty("words");
+        String words_Jar_file_name = "plugins/" + words_class_name + ".jar";
         URL wordsJarURL = null;
 		try {
-			wordsJarURL = new File(wordsJarName).toURI().toURL();
+			wordsJarURL = new File(words_Jar_file_name).toURI().toURL();
 		} catch(Exception e){
 			e.printStackTrace();
 		} 
-		// System.out.println("---" + wordsClassName + " " + wordsJarName);
+		// System.out.println("---" + words_class_name + " " + words_Jar_file_name);
 
-		String countClassName = propt.getProperty("count");
-        String countJarName = "plugins/" + countClassName + ".jar";
+		String count_class_name = propt.getProperty("count");
+        String count_Jar_file_name = "plugins/" + count_class_name + ".jar";
         URL countJarURL = null;
 		try {
-			countJarURL = new File(countJarName).toURI().toURL();
+			countJarURL = new File(count_Jar_file_name).toURI().toURL();
 		} catch(Exception e){
 			e.printStackTrace();
 		} 
-		// System.out.println("---" + countClassName + " " + countJarName);
+		// System.out.println("---" + count_class_name + " " + count_Jar_file_name);
 
 		URLClassLoader classLoader1 = new URLClassLoader(new URL[]{wordsJarURL});
 		URLClassLoader classLoader2 = new URLClassLoader(new URL[]{countJarURL});
@@ -71,8 +71,8 @@ public class Twenty {
 		// System.out.println(countJarURL);
 		
 		try {
-			Extractor = (ITFWords) classLoader1.loadClass(wordsClassName).getDeclaredConstructor().newInstance();     
-			Counter = (ITFCount) classLoader2.loadClass(countClassName).getDeclaredConstructor().newInstance();
+			Extractor = (ITFWords) classLoader1.loadClass(words_class_name).getDeclaredConstructor().newInstance();     
+			Counter = (ITFCount) classLoader2.loadClass(count_class_name).getDeclaredConstructor().newInstance();
 		} catch(Exception e){
 			e.printStackTrace();
 		} 
