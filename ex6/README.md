@@ -1,5 +1,3 @@
-### Explanation
-
 ## HOW TO RUN
 You can follow the command:
 ### Part1. Create the interfaces
@@ -32,5 +30,6 @@ javac -cp ".:./plugins/*" Twenty.java
 java -cp ".:./plugins/*" Twenty ./../pride-and-prejudice.txt
 ```
 
-P.S. The above commands has been wrapped into the shell script ```run.sh```, you can simply modify the ```config.properties``` file, and run ```bash run.sh```.
+### P.S. 
+The above commands has been wrapped into the shell script ```run.sh```, you can simply modify the ```config.properties``` file, and run ```bash run.sh```.
 
