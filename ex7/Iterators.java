@@ -134,7 +134,8 @@ public class Iterators {
 
 				if( ((this.i) % 5000) == 0 ){
 					this.sortedEntries = new ArrayList<>(this.freqs.entrySet());
-					Collections.sort(this.sortedEntries, Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()));
+					Collections.sort(this.sortedEntries, 
+						Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()));
 					this.i += 1;
 					return true;
 				} else {
@@ -145,9 +146,12 @@ public class Iterators {
 			if( !this.nonStopWordsIterator.hasNext() && this.EOFSignal == false ){
 				this.EOFSignal = true;
 				this.sortedEntries = new ArrayList<>(this.freqs.entrySet());
-				Collections.sort(this.sortedEntries, Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()));
+				Collections.sort(this.sortedEntries, 
+					Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()));
 				return true;
-			}  return false;
+			} 
+			
+			return false;
 		}
 
 		@Override
@@ -155,6 +159,9 @@ public class Iterators {
 			return this.sortedEntries;
 		}
 	}
+
+
+	private static String[] PRINT_CHOICE = {"FINAL_ROPORT_ONLY", "INCLUDE_TEMPORARY_REPORT"};
 
 	public static void main(String[] args) {
 		/* 
@@ -189,21 +196,38 @@ public class Iterators {
 		} 
 		*/
 
-		try {
-			CountAndSortIterator iterator = new CountAndSortIterator(args[0]);
-			String res = "";
 
-			while( iterator.hasNext() ){
-				List<Map.Entry<String, Integer>> word_freqs = iterator.next();
-				// System.out.println("-----------------------------");
-				StringBuilder resBuilder = new StringBuilder();
-				// resBuilder.append("-----------------------------\n");
-				for(Map.Entry<String, Integer> entry : word_freqs.subList(0, 25)) {
-					// System.out.println(entry.getKey() + "  -  " + entry.getValue());
-					resBuilder.append(entry.getKey() + "  -  " + entry.getValue() + "\n");
-				} res = resBuilder.toString();
-			}
-			System.out.print(res);
+		try {
+
+			if( args[1].equals(PRINT_CHOICE[0]) ){
+				CountAndSortIterator iterator = new CountAndSortIterator(args[0]);
+				String res = "";
+				while( iterator.hasNext() ){
+					List<Map.Entry<String, Integer>> word_freqs = iterator.next();
+					StringBuilder resBuilder = new StringBuilder();
+					for(Map.Entry<String, Integer> entry : word_freqs.subList(0, 25)) {
+						resBuilder.append(entry.getKey() + "  -  " + entry.getValue() + "\n");
+					} res = resBuilder.toString();
+				}
+				System.out.print(res);
+			} else if ( args[1].equals(PRINT_CHOICE[1]) ) {
+				CountAndSortIterator iterator = new CountAndSortIterator(args[0]);
+				// String res = "";
+				while( iterator.hasNext() ){
+					List<Map.Entry<String, Integer>> word_freqs = iterator.next();
+					System.out.println("-----------------------------");
+					// StringBuilder resBuilder = new StringBuilder();
+					// resBuilder.append("-----------------------------\n");
+					for(Map.Entry<String, Integer> entry : word_freqs.subList(0, 25)) {
+						System.out.println(entry.getKey() + "  -  " + entry.getValue());
+						// resBuilder.append(entry.getKey() + "  -  " + entry.getValue() + "\n");
+					} // res = resBuilder.toString();
+				}
+				// System.out.print(res);
+			} else {
+				System.err.println("Please specify the printing method you want! Thanks!");
+				System.exit(0);
+			}		
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
