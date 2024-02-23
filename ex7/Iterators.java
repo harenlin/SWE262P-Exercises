@@ -164,12 +164,13 @@ public class Iterators {
 	private static String[] PRINT_CHOICE = {"FINAL_ROPORT_ONLY", "INCLUDE_TEMPORARY_REPORT"};
 
 	public static void main(String[] args) {
-		/* 
+		 
+		/*
 		// testing for CharactersIterator
 		try {
-			CharactersIterator iterator = new CharactersIterator(filePath);
+			CharactersIterator iterator = new CharactersIterator(args[0]);
 			while (iterator.hasNext()) {
-				System.out.print(iterator.next());
+				System.out.println(iterator.next());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -177,7 +178,7 @@ public class Iterators {
 		
 		// testing for AllWordsIterator
 		try {
-			AllWordsIterator iterator = new AllWordsIterator(filePath);
+			AllWordsIterator iterator = new AllWordsIterator(args[0]);
 			while (iterator.hasNext()) {
 				System.out.println(iterator.next());
 			}
@@ -187,7 +188,7 @@ public class Iterators {
 
 		// testing for NonStopWordsIterator
 		try {
-			NonStopWordsIterator iterator = new NonStopWordsIterator(filePath);
+			NonStopWordsIterator iterator = new NonStopWordsIterator(args[0]);
 			while (iterator.hasNext()) {
 				System.out.println(iterator.next());
 			}
@@ -198,7 +199,6 @@ public class Iterators {
 
 
 		try {
-
 			if( args[1].equals(PRINT_CHOICE[0]) ){
 				CountAndSortIterator iterator = new CountAndSortIterator(args[0]);
 				String res = "";
@@ -230,7 +230,7 @@ public class Iterators {
 			}		
 		} catch (IOException e) {
 			e.printStackTrace();
-		} 
+		}  
 	}
 }
 
