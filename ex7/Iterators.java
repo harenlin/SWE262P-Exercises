@@ -134,8 +134,9 @@ public class Iterators {
 		private NonStopWordsIterator nonStopWordsIterator;
 		private Map<String, Integer> freqs;
 		private int i;
-		private List<Map.Entry<String, Integer>> sortedEntries;
 		private boolean EOFSignal = false;
+		private boolean nextReported = false; // reported or not
+		private List<Map.Entry<String, Integer>> sortedEntries; // last generated report
 
 		public CountAndSortIterator(String filename) throws IOException {
 			this.nonStopWordsIterator = new NonStopWordsIterator(filename);
@@ -145,6 +146,12 @@ public class Iterators {
 
 		@Override
 		public boolean hasNext() {
+			if( !this.nonStopWordsIterator.hasNext() && this.EOFSignal ) return false;
+			if( this.nextReported == false ){
+				this.next();
+				this.nextReported = true;
+			} return !this.sortedEntries.isEmpty(); 
+			/* 
 			while( this.nonStopWordsIterator.hasNext() ){
 				String w = this.nonStopWordsIterator.next();
 				this.freqs.put(w, this.freqs.getOrDefault(w, 0) + 1);
@@ -159,7 +166,6 @@ public class Iterators {
 					this.i += 1;
 				}
 			}
-
 			if( !this.nonStopWordsIterator.hasNext() && this.EOFSignal == false ){
 				this.EOFSignal = true;
 				this.sortedEntries = new ArrayList<>(this.freqs.entrySet());
@@ -167,16 +173,40 @@ public class Iterators {
 					Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()));
 				return true;
 			} 
-			
 			return false;
+			*/
 		}
 
 		@Override
 		public List<Map.Entry<String, Integer>> next() {
+			if( !this.nextReported ){
+				while( this.nonStopWordsIterator.hasNext() ){
+					String w = this.nonStopWordsIterator.next();
+					this.freqs.put(w, this.freqs.getOrDefault(w, 0) + 1);
+	
+					if( ((this.i) % 5000) == 0 ){
+						this.sortedEntries = new ArrayList<>(this.freqs.entrySet());
+						Collections.sort(this.sortedEntries, 
+							Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()));
+						this.i += 1;
+						break;
+					} else {
+						this.i += 1;
+					}
+				}
+
+				if( !this.nonStopWordsIterator.hasNext() && this.EOFSignal == false ){
+					this.EOFSignal = true;
+					this.sortedEntries = new ArrayList<>(this.freqs.entrySet());
+					Collections.sort(this.sortedEntries, 
+						Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()));
+				} 
+			} 
+			this.nextReported = false;
 			return this.sortedEntries;
+			// return this.sortedEntries;
 		}
 	}
-
 
 	private static String[] PRINT_CHOICE = {"FINAL_ROPORT_ONLY", "INCLUDE_TEMPORARY_REPORT"};
 
@@ -205,7 +235,7 @@ public class Iterators {
 		} 
 		*/
 
-		/* 	
+		/* 
 		// testing for NonStopWordsIterator
 		try {
 			NonStopWordsIterator iterator = new NonStopWordsIterator(args[0]);
@@ -217,6 +247,7 @@ public class Iterators {
 		} 
 		*/
 
+		
 		try {
 			if( args[1].equals(PRINT_CHOICE[0]) ){
 				CountAndSortIterator iterator = new CountAndSortIterator(args[0]);
@@ -249,7 +280,7 @@ public class Iterators {
 			}		
 		} catch (IOException e) {
 			e.printStackTrace();
-		}  
+		} 
 	}
 }
 
