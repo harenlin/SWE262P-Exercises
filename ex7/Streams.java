@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Spliterator;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -74,7 +73,7 @@ public class Streams {
             // local variables referenced from a lambda expression must be final or effectively final
             StringBuilder wordBuilder = new StringBuilder();
 
-            while (charactersSpliterator.tryAdvance(c -> {
+            /* while ( charactersSpliterator.tryAdvance(c -> {
                 if (startChar[0]) {
                     if (Character.isLetterOrDigit(c)) {
                         wordBuilder.append(Character.toLowerCase(c));
@@ -90,7 +89,30 @@ public class Streams {
                         action.accept(this.currentWord);
                     }
                 }
-            })); // return true;
+            })); // return true; */
+
+            while (true) {
+                if ( !charactersSpliterator.tryAdvance(c -> {
+                    if (startChar[0]) {
+                        if (Character.isLetterOrDigit(c)) {
+                            wordBuilder.append(Character.toLowerCase(c));
+                            startChar[0] = false;
+                        }
+                    } else {
+                        if (Character.isLetterOrDigit(c)) {
+                            wordBuilder.append(Character.toLowerCase(c));
+                        } else {
+                            startChar[0] = true;
+                            this.currentWord = wordBuilder.toString();
+                            wordBuilder.setLength(0);
+                            action.accept(this.currentWord);
+                        }
+                    }
+                })) {
+                    break;
+                } 
+            }
+
 
             if( wordBuilder.length() != 0 ){ // Check for the last word
                 this.currentWord = wordBuilder.toString();
@@ -233,6 +255,17 @@ public class Streams {
 
 	public static void main(String[] args) {
 		/* 
+        // testing for AllWordsSpliterator
+        AllWordsSpliterator spliterator;
+		try {
+			spliterator = new AllWordsSpliterator(args[0]);
+			spliterator.stream().forEach(System.out::println);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+        */
+
+        /*  
         // testing for NonStopWordsSpliterator
         NonStopWordsSpliterator spliterator;
 		try {
@@ -240,8 +273,10 @@ public class Streams {
 			spliterator.stream().forEach(System.out::println);
 		} catch (IOException e) {
 			e.printStackTrace();
-		} */
+		} 
+        */
 
+         
         CountAndSortIterator spliterator;
 		try {
 			spliterator = new CountAndSortIterator(args[0]);
@@ -251,6 +286,7 @@ public class Streams {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
+        
 	}
 }
 

@@ -36,7 +36,7 @@ public class Iterators {
 
 	public static class AllWordsIterator implements Iterator<String> {
 		private CharactersIterator charactersIterator;
-	    private String currentWord;
+	    // private String currentWord;
 
 		public AllWordsIterator(String filename) throws IOException {
 			this.charactersIterator = new CharactersIterator(filename);
@@ -44,6 +44,12 @@ public class Iterators {
 
 		@Override
 		public boolean hasNext() {
+			return this.charactersIterator.hasNext();
+		}
+
+		@Override
+		public String next() {
+			// return this.currentWord;
 			boolean startChar = true;
 			StringBuilder wordBuilder = new StringBuilder();
 
@@ -62,25 +68,22 @@ public class Iterators {
 						wordBuilder.append(Character.toLowerCase(c));
 					} else { // We found end of word, emit it
 						startChar = true;
-						this.currentWord = wordBuilder.toString();
-						return true;
+						// this.currentWord = wordBuilder.toString();
+						// return this.currentWord;
+						return wordBuilder.toString();
 					}
 				}
 			}
 
-			return false;
-		}
-
-		@Override
-		public String next() {
-			return this.currentWord;
+			return "";
 		}
 	}
 
 	public static class NonStopWordsIterator implements Iterator<String> {
 		private AllWordsIterator allWordsIterator;
 		private Set<String> stopWords;
-		private String currentWord;
+		private boolean readNext;
+		private String prevReadNextValue;
 
 		public NonStopWordsIterator(String filename) throws IOException {
 			this.allWordsIterator = new AllWordsIterator(filename);
@@ -99,17 +102,31 @@ public class Iterators {
 
 		@Override
 		public boolean hasNext() {
-			while( this.allWordsIterator.hasNext() ){
+			/* while( this.allWordsIterator.hasNext() ){
 				String w = this.allWordsIterator.next();
 				if( this.stopWords.contains(w) ) continue;
 				this.currentWord = w;
 				return true;
-			} return false;
+			} return false; */
+			if( this.readNext == false ){
+				this.next();
+				this.readNext = true;
+			} return !this.prevReadNextValue.equals("");
 		}
 
 		@Override
 		public String next() {
-			return this.currentWord;
+			/* return this.currentWord; */
+			if( !this.readNext ){
+				while( this.allWordsIterator.hasNext() ){
+					String w = this.allWordsIterator.next();
+					if( this.stopWords.contains(w) ) continue;
+					this.prevReadNextValue = w;
+					break;
+				} 
+			} 
+			this.readNext = false;
+			return this.prevReadNextValue;
 		}
 	}
 
@@ -164,8 +181,7 @@ public class Iterators {
 	private static String[] PRINT_CHOICE = {"FINAL_ROPORT_ONLY", "INCLUDE_TEMPORARY_REPORT"};
 
 	public static void main(String[] args) {
-		 
-		/*
+		/* 
 		// testing for CharactersIterator
 		try {
 			CharactersIterator iterator = new CharactersIterator(args[0]);
@@ -175,7 +191,9 @@ public class Iterators {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		*/
 
+		/* 
 		// testing for AllWordsIterator
 		try {
 			AllWordsIterator iterator = new AllWordsIterator(args[0]);
@@ -185,7 +203,9 @@ public class Iterators {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
-		
+		*/
+
+		/* 	
 		// testing for NonStopWordsIterator
 		try {
 			NonStopWordsIterator iterator = new NonStopWordsIterator(args[0]);
