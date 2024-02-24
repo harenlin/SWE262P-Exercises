@@ -174,8 +174,8 @@ public class Iterators {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-		} 
-		*/
+		}
+
 		// testing for AllWordsIterator
 		try {
 			AllWordsIterator iterator = new AllWordsIterator(args[0]);
@@ -185,7 +185,7 @@ public class Iterators {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
-		/*
+		
 		// testing for NonStopWordsIterator
 		try {
 			NonStopWordsIterator iterator = new NonStopWordsIterator(args[0]);
@@ -197,7 +197,6 @@ public class Iterators {
 		} 
 		*/
 
-		/*
 		try {
 			if( args[1].equals(PRINT_CHOICE[0]) ){
 				CountAndSortIterator iterator = new CountAndSortIterator(args[0]);
@@ -230,7 +229,7 @@ public class Iterators {
 			}		
 		} catch (IOException e) {
 			e.printStackTrace();
-		}  */
+		}  
 	}
 }
 
