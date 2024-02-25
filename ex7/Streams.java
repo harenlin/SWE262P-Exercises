@@ -283,7 +283,7 @@ public class Streams {
             while (this.nonStopWordsSpliterator.tryAdvance(word -> {
                 this.freqs.put(word, this.freqs.getOrDefault(word, 0) + 1);
             })) {
-                if ((this.i % 500000000) == 0) {
+                if ((this.i % 5000) == 0) {
                     this.sortedEntries = new ArrayList<>(this.freqs.entrySet());
                     this.sortedEntries.sort(Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()));
                     action.accept(this.sortedEntries);
