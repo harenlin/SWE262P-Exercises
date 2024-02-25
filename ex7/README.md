@@ -12,6 +12,7 @@ diff Iterators_Final.txt ./../test_out.txt
 ```
 to generate the temporary and final report of TF counting. 
 And then, we can check the final report generated from the iterators is correct or not (with the given correct report, i.e., ```test_out.txt```).
+
 2. [Stremas] You can run the commands:
 ```shell
 javac Streams.java
