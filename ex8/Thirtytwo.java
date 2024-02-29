@@ -111,16 +111,15 @@ public class Thirtytwo {
 
 	// The main function
 	public static void main(String[] args) throws IOException {
-		List<List<Map.Entry<String, Integer>>> splits = partition(read_file(args[0]), 200)
-														.stream()
-														.map(data_str -> {
-															try {
-																return splitWords(data_str);
-															} catch (IOException e) {
-																e.printStackTrace();
-																return Collections.<Map.Entry<String, Integer>>emptyList();
-															}
-														}).collect(Collectors.toList());
+		List<List<Map.Entry<String, Integer>>> splits = partition(read_file(args[0]), 200).stream()
+                                                        .map(data_str -> {
+                                                            try {
+                                                                return splitWords(data_str);
+                                                            } catch (IOException e) {
+                                                                e.printStackTrace();
+                                                                return Collections.<Map.Entry<String, Integer>>emptyList();
+                                                            }
+                                                        }).collect(Collectors.toList());
 		Map<String, List<Map.Entry<String, Integer>>> splits_per_word = regroup(splits);
 		List<Map.Entry<String, Integer>> word_freqs = sort_freqs(splits_per_word.entrySet().stream().map(Thirtytwo::countWords).collect(Collectors.toList()));
 		word_freqs.stream().limit(25).forEach(entry -> System.out.println(entry.getKey() + "  -  " + entry.getValue())); 
