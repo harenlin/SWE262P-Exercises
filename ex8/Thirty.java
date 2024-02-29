@@ -63,18 +63,17 @@ public class Thirty {
 
 		// Let's create the workers and launch them at their jobs
 		Thread[] workers = new Thread[5];
-		for (int i = 0; i < workers.length; i++) {
+		for(int i = 0; i < workers.length; i++){
 			workers[i] = new Thread(Thirty::process_words);
 			workers[i].start();
 		}
 
 		// Let's wait for the workers to finish
-		for (Thread worker : workers) {
+		for(Thread worker : workers){
 			worker.join();
 		} // System.out.println("All workers are done!");
 
-		// Let's merge the partial frequency results by consuming
-		// frequency data from the frequency space
+		// Let's merge the partial frequency results by consuming frequency data from the frequency space
 		Map<String, Integer> word_freqs = new HashMap<>();
 		while( !freq_space.isEmpty() ){
 			Map<String, Integer> cur_freqs = freq_space.poll();
