@@ -4,9 +4,7 @@ import java.nio.file.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-// Functions for map-reduce
 public class Thirtytwo {
-
 	private static List<String> partition(String data_str, int nlines) {
 		/* Partitions the input data_str (a big string) into chunks of nlines. */
 		List<String> lines = Arrays.asList(data_str.split("\n"));

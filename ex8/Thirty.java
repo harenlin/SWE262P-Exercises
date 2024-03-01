@@ -33,6 +33,9 @@ public class Thirty {
 	private static void process_words() {
 		Map<String, Integer> word_freqs = new HashMap<>();
 		while( true ){
+			// ==========================================================
+			// Better to maintain time out here!
+			// ==========================================================
 			String word = word_space.poll();
 			if( word == null ) {
 				break;
