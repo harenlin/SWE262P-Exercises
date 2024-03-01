@@ -10,4 +10,7 @@ javac Thirtytwo.java
 java Thirtytwo ./../pride-and-prejudice.txt > Thirtytwo.txt
 diff Thirtytwo.txt ./../test_out.txt
 
+javac ThirtytwoAlphabet.java                       
+java ThirtytwoAlphabet ./../pride-and-prejudice.txt > ThirtytwoAlphabet.txt
+
 rm *.class
