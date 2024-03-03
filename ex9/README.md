@@ -4,7 +4,7 @@
 ## Exercise Spec
 Using Python + numpy, or any other array programming language, 
 implement a program that takes as input an array of characters 
-(the characters from Pride and Prejudice, for example), 
+(the characters from ```pride-and-prejudice```, for example), 
 normalizes to UPPERCASE, 
 ignores words smaller than 2 characters, 
 and replaces the vowels with their [Leet](https://simple.wikipedia.org/wiki/Leet) counterparts when there is a one-to-one mapping. 
