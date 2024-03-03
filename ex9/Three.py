@@ -44,7 +44,8 @@ X: ×,%, *, ><, }{, )(, Ж
 Y: `/, ¥, \|/, Ч, ү, у
 Z: 5, 7_, >_, (/)
 """
-# 
+# np.vectorize(function)(numpy_object)
+#  
 # Result: 
 
 # 5) Ignores words smaller than 2 characters
