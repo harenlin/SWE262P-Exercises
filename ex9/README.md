@@ -1,5 +1,5 @@
 ## Language
-### Python3
+#### Python3
 
 ## Exercise Spec
 Using Python + numpy, or any other array programming language, 
@@ -17,3 +17,4 @@ think of how you could do it with one or more array operations.
 (Sometimes, it's not possible; but most often it is)
 
 ## HOW TO RUN
+Simply run the command on the terminal: ```python3 Three.py ./../pride-and-prejudice.txt```.
