@@ -123,6 +123,7 @@ public class ThirtytwoAlphabet {
                                                         }).collect(Collectors.toList());
 		Map<String, List<Map.Entry<String, Integer>>> splits_per_word = regroup(splits);
 		List<Map.Entry<String, Integer>> word_freqs = sort_freqs(splits_per_word.entrySet().stream().map(ThirtytwoAlphabet::countWords).collect(Collectors.toList()));
+		System.out.println("The words start with different alphabet and the corresponding frequency are as follows: (Sorted DESC)");
 		word_freqs.stream().forEach(entry -> System.out.println(entry.getKey() + "  -  " + entry.getValue())); 
 	}
 }

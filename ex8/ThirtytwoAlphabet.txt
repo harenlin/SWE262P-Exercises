@@ -1,3 +1,4 @@
+The words start with different alphabet and the corresponding frequency are as follows: (Sorted DESC)
 s  -  5514
 m  -  4756
 c  -  4027

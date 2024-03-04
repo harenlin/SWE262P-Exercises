@@ -29,28 +29,28 @@ public class Thirty {
 		}
 	}
 
-	// Worker function that consumes words from the word space and sends partial results to the frequency space
-	private static void process_words() {
-		Map<String, Integer> word_freqs = new HashMap<>();
-		while( true ){
-			// ==========================================================
-			// Better to maintain time out here!
-			// ==========================================================
-			String word = word_space.poll();
-			if( word == null ) {
-				break;
-			}
-			if( !stopwords.contains(word) ){
-				if( word_freqs.containsKey(word) ){
-					word_freqs.put(word, word_freqs.get(word) + 1);
-				} else {
-					word_freqs.put(word, 1);
+
+	// Worker that consumes words from the word space and sends partial results to the frequency space
+	private static class ProcessWordsThread extends Thread {
+    	@Override
+	    public void run() { // equals to the process_word function in tf-03.py
+			Map<String, Integer> word_freqs = new HashMap<>();
+			while( true ){
+				String word = word_space.poll();
+				if( word == null ) {
+					break;
+				}
+				if( !stopwords.contains(word) ){
+					if( word_freqs.containsKey(word) ){
+						word_freqs.put(word, word_freqs.get(word) + 1);
+					} else {
+						word_freqs.put(word, 1);
+					}
 				}
 			}
-		}
-		freq_space.add(word_freqs);
+			freq_space.add(word_freqs);
+	    }
 	}
-
 
 	public static void main(String[] args) throws InterruptedException {
 		// Let's have this thread populate the word space
@@ -65,14 +65,17 @@ public class Thirty {
 		}
 
 		// Let's create the workers and launch them at their jobs
-		Thread[] workers = new Thread[5];
+		// Thread[] workers = new Thread[5];
+		ProcessWordsThread[] workers = new ProcessWordsThread[5];
 		for(int i = 0; i < workers.length; i++){
-			workers[i] = new Thread(Thirty::process_words);
+			// workers[i] = new Thread(Thirty::process_words);
+			workers[i] = new ProcessWordsThread(); 
 			workers[i].start();
 		}
 
 		// Let's wait for the workers to finish
-		for(Thread worker : workers){
+		// for(Thread worker : workers){
+		for(ProcessWordsThread worker : workers){
 			worker.join();
 		} // System.out.println("All workers are done!");
 
