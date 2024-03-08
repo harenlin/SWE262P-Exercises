@@ -113,7 +113,7 @@ two_gram_word_pairs = np.reshape(repeated_one_grams[1:-1], (-1, 2))
 # Result: [['H3LL0', 'W0RLD']]
 
 two_grams = np.array(list(map(lambda words: ' '.join(words), two_gram_word_pairs)))
-# Result: ['H3LLO W0RLD']
+# Result: ['H3LL0 W0RLD']
 
 # 8) Count the unique two-gram and the corresponding frequencies
 unique_two_grams, counts = np.unique(two_grams, axis=0, return_counts=True)
