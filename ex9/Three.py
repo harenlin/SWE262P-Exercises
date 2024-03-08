@@ -44,9 +44,40 @@ X: ×,%, *, ><, }{, )(, Ж
 Y: `/, ¥, \|/, Ч, ү, у
 Z: 5, 7_, >_, (/)
 """
+
+leet_mapping = {
+    'A': '4', ###
+    'B': 'B',
+    'C': 'C',
+    'D': 'D',
+    'E': '3', ###
+    'F': 'F',
+    'G': 'G',
+    'H': 'H',
+    'I': '1', ###
+    'J': 'J',
+    'K': 'K',
+    'L': 'L',
+    'M': 'M',
+    'N': 'N',
+    'O': '0', ###
+    'P': 'P',
+    'Q': 'Q',
+    'R': 'R',
+    'S': 'S',
+    'T': 'T',
+    'U': 'U', ######
+    'V': 'V',
+    'W': 'W',
+    'X': 'X',
+    'Y': 'Y',
+    'Z': 'Z',
+    ' ': ' '
+}
+
 # np.vectorize(function)(numpy_object)
-#  
-# Result: 
+characters = np.vectorize(lambda key: leet_mapping[key])(characters)
+# Result: [' ', 'H', '3', 'L', 'L', '0', ' ', ' ', 'W', '0', 'R', 'L', 'D', ' ', ' ']
 
 # 5) Ignores words smaller than 2 characters
 # space_indices = np.where(np.logical_or(characters == ' ', ~np.char.isalnum(characters)))
@@ -67,22 +98,22 @@ word_ranges = word_ranges[np.where(word_ranges[:, 1] - word_ranges[:, 0] > 2)]
 
 # 6) Get 1-gram words first.
 words = list(map(lambda r: characters[r[0]:r[1]], word_ranges))
-# Result: [array([' ', 'H', 'E', 'L', 'L', 'O'], dtype='<U1'), array([' ', 'W', 'O', 'R', 'L', 'D'], dtype='<U1')]
+# Result: [array([' ', 'H', '3', 'L', 'L', '0'], dtype='<U1'), array([' ', 'W', '0', 'R', 'L', 'D'], dtype='<U1')]
 
 one_grams = np.array(list(map(lambda w: ''.join(w).strip(), words)))
-# Result: ['HELLO', 'WORLD']
+# Result: ['H3LL0', 'W0RLD']
 
 # No need to care about stopwords here!
 
 # 7) Similar way to get 2-gram words.
 repeated_one_grams = np.repeat(one_grams, 2)
-# Result: ['HELLO', 'HELLO', 'WORLD', 'WORLD']
+# Result: ['H3LL0', 'H3LL0', 'W0RLD', 'W0RLD']
 
 two_gram_word_pairs = np.reshape(repeated_one_grams[1:-1], (-1, 2))
-# Result: [['HELLO', 'WORLD']]
+# Result: [['H3LL0', 'W0RLD']]
 
 two_grams = np.array(list(map(lambda words: ' '.join(words), two_gram_word_pairs)))
-# Result: ['HELLO WORLD']
+# Result: ['H3LLO W0RLD']
 
 # 8) Count the unique two-gram and the corresponding frequencies
 unique_two_grams, counts = np.unique(two_grams, axis=0, return_counts=True)
