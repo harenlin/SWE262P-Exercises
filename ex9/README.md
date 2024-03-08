@@ -22,7 +22,11 @@ think of how you could do it with one or more array operations.
 
 
 ## Description
-For the Leet, I create the mapping of 26 uppercase alphabet to the corresponding one. Since the spec only mentions the transformation of VOWELs, i.e., `A`, `E`, `I`, `O`, `U`, I just change the value of these 5 characters whenever I encounter. However, `U` cannot be transformed to another character (the listed leet are all more than 1 char), so the transformed leet for `U` is still `U`.
+For the Leet, I create the mapping of 26 uppercase alphabets to the corresponding one. 
+Since the spec only mentions the transformation of VOWELs, i.e., `A`, `E`, `I`, `O`, `U`,
+ I just change the value of these 5 characters whenever I encounter them.
+However, `U` cannot be transformed to another character (the listed leet are all more than 1 char), 
+so the transformed leet for `U` is still `U`.
 
 ## Code Author
 Hao-Lun Lin (laolunl@uci.edu)
