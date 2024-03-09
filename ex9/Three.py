@@ -1,5 +1,8 @@
 import sys, string
 import numpy as np
+import argparse
+
+# print(sys.argv)
 
 # Example input: "Hello  World!" 
 
@@ -80,7 +83,6 @@ characters = np.vectorize(lambda key: leet_mapping[key])(characters)
 # Result: [' ', 'H', '3', 'L', 'L', '0', ' ', ' ', 'W', '0', 'R', 'L', 'D', ' ', ' ']
 
 # 5) Ignores words smaller than 2 characters
-# space_indices = np.where(np.logical_or(characters == ' ', ~np.char.isalnum(characters)))
 space_indices = np.where(characters == ' ')
 # Result: [0, 6, 7, 13, 14]
 
@@ -103,7 +105,20 @@ words = list(map(lambda r: characters[r[0]:r[1]], word_ranges))
 one_grams = np.array(list(map(lambda w: ''.join(w).strip(), words)))
 # Result: ['H3LL0', 'W0RLD']
 
-# No need to care about stopwords here!
+############################ No need to care about stopwords here!
+filter_stop_words = sys.argv[2]
+if filter_stop_words == 'True':
+    stop_words_characters = np.array([' ']+list(open('./../stop_words.txt').read())+[' '])
+    stop_words_characters[~np.char.isalpha(stop_words_characters)] = ' '
+    stop_words_characters = np.char.upper(stop_words_characters)
+    stop_words_characters = np.vectorize(lambda key: leet_mapping[key])(stop_words_characters)
+    sw_space_indices = np.where(stop_words_characters == ' ')
+    sw_repeated_indices = np.repeat(sw_space_indices, 2)
+    sw_word_ranges = np.reshape(sw_repeated_indices[1:-1], (-1, 2))
+    sw_word_ranges = sw_word_ranges[np.where(sw_word_ranges[:, 1] - sw_word_ranges[:, 0] > 2)]
+    stop_words = list(map(lambda r: stop_words_characters[r[0]:r[1]], sw_word_ranges))
+    stop_words = np.array(list(map(lambda w: ''.join(w).strip(), stop_words)))
+    one_grams = one_grams[~np.isin(one_grams, stop_words)]
 
 # 7) Similar way to get 2-gram words.
 repeated_one_grams = np.repeat(one_grams, 2)

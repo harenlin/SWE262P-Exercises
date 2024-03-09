@@ -18,7 +18,8 @@ think of how you could do it with one or more array operations.
 
 ## HOW TO RUN
 0. Please make sure the numpy is installed: ```pip install numpy```.
-1. Simply run the command on the terminal: ```python3 Three.py ./../pride-and-prejudice.txt```.
+1. Run the code with removing stop words: ```python3 Three.py ./../pride-and-prejudice.txt True```.
+2. Run the code without removing stop words: ```python3 Three.py ./../pride-and-prejudice.txt False```.
 
 
 ## Description
@@ -27,7 +28,7 @@ Since the spec only mentions the transformation of VOWELs, i.e., `A`, `E`, `I`, 
  I just change the value of these 5 characters whenever I encounter them.
 However, `U` cannot be transformed to another character (the listed leet are all more than 1 char), 
 so the transformed leet for `U` is still `U`. 
-By the way, since the spec didn't mention we need to filter the stop words, so the code does not move out stop words.
+By the way, since the spec didn't mention we need to filter the stop words, so the code optionally move out stop words.
 
 ## Code Author
 Hao-Lun Lin (laolunl@uci.edu)
